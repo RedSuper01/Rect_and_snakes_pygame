@@ -97,7 +97,6 @@ def check_click(mouse_x, mouse_y, tuple_of_coord, dc):  # проверяем н�
 
 """Первый вид змейки без анимации"""
 
-
 class Snake(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__(all_sprites)
