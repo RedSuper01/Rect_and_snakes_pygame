@@ -16,14 +16,17 @@ levels_dict_coord = {'1': '', '2': '', '3': '', '4': '', '5': '',
                      '11': '', '12': '', '13': '', '14': '', '15': '',
                      '16': '', '17': '', '18': '', '19': '', '20': ''
                      }
-main_fon_dict_coord = {'1': ['fon1.jfif'], '2': ['fon2.jfif'], '3': ['fon3.jfif'], '4': ['fon4.jfif'], '5': ['fon5.jfif'],
-                       '6': ['fon6.jfif'], '7': ['fon7.jfif'], '8': ['fon8.png'], '9': ['fon9.jfif'], '10': ['fon10.jfif'],
-                       '11': ['fon11.jfif'], '12': ['fon12.jfif'], '13': ['fon13.jfif'], '14': ['fon14.jfif'],
-                       '15': ['fon15.jfif'],
+main_fon_dict_coord = {'1': ['fon1.jfif'], '2': ['fon2.jfif'], '3': ['fon3.jfif'], '4': ['fon4.jfif'],
+                       '5': ['fon5.jfif'], '6': ['fon6.jfif'], '7': ['fon7.jfif'],
+                       '8': ['fon8.jfif'], '9': ['fon9.jfif'],
+                       '10': ['fon10.jfif'], '11': ['fon11.jfif'], '12': ['fon12.jfif'], '13': ['fon13.jfif'],
+                       '14': ['fon14.jfif'], '15': ['fon15.jfif'],
                        'main': 'main'
                        }
-level_fon_dict_coord = {'1': ['fon1.jfif'], '2': ['fon2.jfif'], '3': ['fon3.jfif'], '4': ['fon4.jfif'], '5': ['fon5.jfif'],
-                        '6': ['fon6.jfif'], '7': ['fon7.jfif'], '8': ['fon8.jfif'], '9': ['fon9.jfif'], '10': ['fon10.jfif'],
+level_fon_dict_coord = {'1': ['fon1.jfif'], '2': ['fon2.jfif'], '3': ['fon3.jfif'], '4': ['fon4.jfif'],
+                        '5': ['fon5.jfif'],
+                        '6': ['fon6.jfif'], '7': ['fon7.jfif'], '8': ['fon8.jfif'], '9': ['fon9.jfif'],
+                        '10': ['fon10.jfif'],
                         '11': ['fon11.jfif'], '12': ['fon12.jfif'], '13': ['fon13.jfif'], '14': ['fon14.jfif'],
                         '15': ['fon15.jfif'],
                         'level': 'level'
@@ -57,7 +60,7 @@ file_of_fon.close()
 time_watch = 0
 
 
-def load_image(name, color_key=None): # Загрузка картинки для работы и также ее обрезка(если нужно)
+def load_image(name, color_key=None):  # Загрузка картинки для работы и также ее обрезка(если нужно)
     fullname = 'data\\' + name
     # если файл не существует, то выходим
     if not os.path.isfile(fullname):
@@ -74,10 +77,13 @@ def load_image(name, color_key=None): # Загрузка картинки для
         image = image.convert_alpha()
     return image
 
+
 """я при рисовании текста на экране записываю 4 его координаты в словарик, в котором ключи - это
 текст, а значения ключа - это координаты этого текста в виде кортежа. Затем я вытаскиваю этот кортеж и смотрю, если 
 координаты мыши находятся внутри этого прямоугольника, то возвращаю ключ"""
-def check_click(mouse_x, mouse_y, tuple_of_coord, dc):# проверяем на какой текст кликнул пользователь
+
+
+def check_click(mouse_x, mouse_y, tuple_of_coord, dc):  # проверяем на какой текст кликнул пользователь
     text_x, text_y, text_w, text_h = tuple_of_coord
     start_x, end_x, start_y, end_y = text_x, text_x + text_w, text_y, text_y + text_h
     if start_x <= mouse_x <= end_x and start_y <= mouse_y <= end_y:
@@ -88,7 +94,10 @@ def check_click(mouse_x, mouse_y, tuple_of_coord, dc):# проверяем на 
     else:
         return ''
 
+
 """Первый вид змейки без анимации"""
+
+
 class Snake(pygame.sprite.Sprite):
     def __init__(self, x, y):
         super().__init__(all_sprites)
@@ -106,7 +115,10 @@ class Snake(pygame.sprite.Sprite):
         if pygame.sprite.spritecollideany(self, vertical_borders):
             self.vx = -self.vx
 
+
 """Вторая змейка с анимацией"""
+
+
 class AnimatedSprite(pygame.sprite.Sprite):
     def __init__(self, sheet, columns, rows, x, y, x1, y1):
         super().__init__(all_sprites)
@@ -138,7 +150,10 @@ class AnimatedSprite(pygame.sprite.Sprite):
         if pygame.sprite.spritecollideany(self, vertical_borders):
             self.vx = -self.vx
 
+
 """Палочки от прямоугольника"""
+
+
 class Border(pygame.sprite.Sprite):
     def __init__(self, x1, y1, x2, y2):
         super().__init__(all_sprites)
@@ -155,6 +170,8 @@ class Border(pygame.sprite.Sprite):
 
 
 """Линии перпендикуляров"""
+
+
 class Lines(pygame.sprite.Sprite):
     def __init__(self, x, y, type_of_line):
         super().__init__(all_sprites)
@@ -187,6 +204,8 @@ class Lines(pygame.sprite.Sprite):
 
 
 """Сложность для каждого уровня"""
+
+
 def change_diff(number_of_level):
     if number_of_level == 1:
         return 10, 5
