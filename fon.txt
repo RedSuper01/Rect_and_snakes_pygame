@@ -1,0 +1,5 @@
+fon12.jfif
+fon10.jfif
+victory_fon7.jfif
+losing_fon2.jfif
+snake1.png
